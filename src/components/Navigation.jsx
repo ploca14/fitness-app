@@ -106,14 +106,14 @@ export default function Navigation(props) {
                     </nav>
                   </div>
                   <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
-                    <a href="#" className="group block flex-shrink-0">
+                    <button type="button" className="group block flex-shrink-0 text-left">
                       <div className="flex items-center">
                         <div className="ml-3">
                           <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">{props.user.Name}</p>
                           <p className="text-sm font-medium text-gray-500 group-hover:text-gray-700">{props.user.Role}</p>
                         </div>
                       </div>
-                    </a>
+                    </button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -152,14 +152,14 @@ export default function Navigation(props) {
               </nav>
             </div>
             <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
-              <a href="#" className="group block w-full flex-shrink-0">
+              <button type="button" className="group block w-full flex-shrink-0 text-left">
                 <div className="flex items-center">
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">{props.user.Name}</p>
                     <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">{props.user.Role}</p>
                   </div>
                 </div>
-              </a>
+              </button>
             </div>
           </div>
         </div>
