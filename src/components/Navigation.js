@@ -2,24 +2,26 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {
   Bars3Icon,
-  CalendarIcon,
-  ChartBarIcon,
-  FolderIcon,
   HomeIcon,
-  InboxIcon,
   UsersIcon,
   XMarkIcon,
   TrophyIcon,
 } from '@heroicons/react/24/outline'
+import { NavLink } from 'react-router-dom'
 
-const navigation = [
-  { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-  { name: 'Team', href: '#', icon: UsersIcon, current: false },
-  { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Documents', href: '#', icon: InboxIcon, current: false },
-  { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
-]
+const navigation = {
+  'Client': [
+    { name: 'Programs', href: '/', icon: HomeIcon, exact: true },
+  ],
+  'PersonalTrainer': [
+    { name: 'Programs', href: '/', icon: HomeIcon, exact: true },
+    { name: 'Clients', href: '/clients', icon: UsersIcon },
+  ],
+  'Manager': [
+    { name: 'Programs', href: '/', icon: HomeIcon, exact: true },
+    { name: 'Users', href: '/users', icon: UsersIcon },
+  ]
+}
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -82,26 +84,24 @@ export default function Navigation(props) {
                     <h1 className="text-2xl font-bold">Fitness App</h1>
                   </div>
                     <nav className="mt-5 space-y-1 px-2">
-                      {navigation.map((item) => (
-                        <a
+                      {navigation[props.user.Role].map((item) => (
+                        <NavLink
                           key={item.name}
-                          href={item.href}
-                          className={classNames(
-                            item.current
+                          to={item.href}
+                          exact={item.exact}
+                          className={isActive => classNames(
+                            isActive
                               ? 'bg-gray-100 text-gray-900'
                               : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                             'group flex items-center px-2 py-2 text-base font-medium rounded-md'
                           )}
                         >
                           <item.icon
-                            className={classNames(
-                              item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                              'mr-4 flex-shrink-0 h-6 w-6'
-                            )}
+                            className={'mr-4 flex-shrink-0 h-6 w-6'}
                             aria-hidden="true"
                           />
                           {item.name}
-                        </a>
+                        </NavLink>
                       ))}
                     </nav>
                   </div>
@@ -132,24 +132,22 @@ export default function Navigation(props) {
                 <h1 className="text-2xl font-bold">Fitness App</h1>
               </div>
               <nav className="mt-5 flex-1 space-y-1 bg-white px-2">
-                {navigation.map((item) => (
-                  <a
+                {navigation[props.user.Role].map((item) => (
+                  <NavLink
                     key={item.name}
-                    href={item.href}
-                    className={classNames(
-                      item.current ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                    to={item.href}
+                    exact={item.exact}
+                    className={isActive => classNames(
+                       isActive ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                       'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                     )}
                   >
                     <item.icon
-                      className={classNames(
-                        item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                        'mr-3 flex-shrink-0 h-6 w-6'
-                      )}
+                      className={'mr-3 flex-shrink-0 h-6 w-6'}
                       aria-hidden="true"
                     />
                     {item.name}
-                  </a>
+                  </NavLink>
                 ))}
               </nav>
             </div>
