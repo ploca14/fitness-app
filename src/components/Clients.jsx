@@ -9,10 +9,6 @@ function Clients() {
   const { apiFetch } = useApi();
   const { isLoading, isError, data: clients, error } = useQuery('clients', () => apiFetch('/Users/Clients'))
 
-  if (isLoading) {
-    return <Page pageName="Loading clients..."></Page>;
-  }
-
   if (isError) {
     return <span>Error: {error.message}</span>
   }
@@ -67,7 +63,9 @@ function Clients() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
-                    {clients.map((person) => (
+                    {isLoading ? (
+                      <div className="px-4 py-4 sm:px-6">Loading clients...</div>
+                    ) : clients.map((person) => (
                       <tr key={person.email}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">
                           {person.firstName}
