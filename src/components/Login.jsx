@@ -1,15 +1,14 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { $fetch } from 'ohmyfetch'
 
 import {
   TrophyIcon,
 } from '@heroicons/react/24/outline'
+import useApi from "./useApi";
 
 export default function Login({ setToken }) {
-  const [authError, setAuthError] = useState()
+  const { apiFetch, apiError } = useApi();
 
   // form validation rules 
   const validationSchema = Yup.object().shape({
@@ -23,14 +22,10 @@ export default function Login({ setToken }) {
   const { errors, isSubmitting } = formState;
 
   async function loginUser(credentials) {
-    return $fetch('https://fitnessbackend2022.azurewebsites.net/api/Users/login', {
+    return apiFetch('/Users/login', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(credentials)
+      body: credentials
     })
-      .catch(error => setAuthError(error.data))
   }
 
   async function onSubmit(credentials) {
@@ -115,8 +110,8 @@ export default function Login({ setToken }) {
                   {isSubmitting && <span className="">0</span>}
                   Sign in
                 </button>
-                {authError &&
-                  <div className="mt-2 text-sm text-red-600">{authError[""][0]}</div>
+                {apiError &&
+                  <div className="mt-2 text-sm text-red-600">{apiError[""][0]}</div>
                 }
               </div>
             </form>

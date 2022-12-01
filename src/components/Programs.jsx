@@ -1,65 +1,16 @@
 import Page from './Page';
 import { Link } from 'react-router-dom';
 import { ChevronRightIcon } from '@heroicons/react/20/solid'
-
-const programs = [
-  {
-    "workoutProgramId": 173,
-    "name": "Workout TO THE MAX!!",
-    "description": "Workout for el Jefe Senior",
-    "exercises": [
-      {
-        "exerciseId": 105,
-        "name": "Ej Jefe Workout",
-        "description": "Stand with your feet spread shoulder width apart. Lower your body as far as you can by pushing your hips back and bending your knees. Pause, and then slowly push yourself back to the starting position.",
-        "sets": 4,
-        "repetitions": 12,
-        "time": "30",
-        "workoutProgramId": 173,
-        "personalTrainerId": 2
-      }
-    ],
-    "personalTrainerId": 2,
-    "clientId": 139
-  },
-  {
-    "workoutProgramId": 172,
-    "name": "test",
-    "description": "test",
-    "exercises": [
-      {
-        "exerciseId": 104,
-        "name": "test",
-        "description": "test",
-        "sets": 11,
-        "repetitions": 22,
-        "time": "32",
-        "workoutProgramId": 172,
-        "personalTrainerId": 2
-      }
-    ],
-    "personalTrainerId": 2,
-    "clientId": 139
-  },
-  {
-    "workoutProgramId": 165,
-    "name": "Test",
-    "description": "test",
-    "exercises": [],
-    "personalTrainerId": 2,
-    "clientId": 139
-  },
-  {
-    "workoutProgramId": 171,
-    "name": "test",
-    "description": "test",
-    "exercises": [],
-    "personalTrainerId": 2,
-    "clientId": 139
-  },
-]
+import useApi from './useApi';
+import { useQuery } from 'react-query';
 
 function Programs() {
+  const { apiFetch } = useApi();
+  const { isLoading, isError, data: programs, error } = useQuery('programs', () => apiFetch('/WorkoutPrograms'))
+
+  if (isError) {
+    return <span>Error: {error.message}</span>
+  }
 
   return (
     <Page pageName="Programs">
@@ -73,7 +24,9 @@ function Programs() {
         </div>
         <div className="overflow-hidden mt-8 bg-white shadow sm:rounded-md">
           <ul className="divide-y divide-gray-200">
-            {programs.map((program) => (
+            {isLoading ? (
+              <div className="px-4 py-4 sm:px-6">Loading programs...</div>
+            ) : programs.map((program) => (
               <li key={program.workoutProgramId}>
                 <Link to={`/programs/${program.workoutProgramId}`} className="block hover:bg-gray-50">
                   <div className="flex items-center px-4 py-4 sm:px-6">

@@ -1,31 +1,23 @@
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { useParams, Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import useUser from './useUser';
+import useApi from './useApi';
 import Page from './Page';
-
-const program = {
-  "workoutProgramId": 173,
-  "name": "Workout TO THE MAX!!",
-  "description": "Workout for el Jefe Senior",
-  "exercises": [
-    {
-      "exerciseId": 105,
-      "name": "Ej Jefe Workout",
-      "description": "Stand with your feet spread shoulder width apart. Lower your body as far as you can by pushing your hips back and bending your knees. Pause, and then slowly push yourself back to the starting position.",
-      "sets": 4,
-      "repetitions": 12,
-      "time": "30",
-      "workoutProgramId": 173,
-      "personalTrainerId": 2
-    }
-  ],
-  "personalTrainerId": 2,
-  "clientId": 139
-}
 
 function Program() {
   const { id } = useParams();
   const { user } = useUser();
+  const { apiFetch } = useApi();
+  const { isLoading, isError, data: program, error } = useQuery(['program', id], () => apiFetch(`/WorkoutPrograms/${id}`))
+
+  if (isLoading) {
+    return <Page pageName="Loading program..."></Page>;
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>
+  }
 
   return (
     <Page pageName={program.name}>

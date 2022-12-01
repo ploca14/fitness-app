@@ -1,22 +1,21 @@
 import Page from './Page';
 import useUser from './useUser';
+import useApi from './useApi';
 import { Redirect, Link } from 'react-router-dom';
-
-const people = [
-  {
-		"userId": 139,
-		"firstName": "Ib",
-		"lastName": "Ibsen",
-		"email": "a@a",
-		"password": null,
-		"personalTrainerId": 2,
-		"accountType": "Client"
-	},
-  // More people...
-]
+import { useQuery } from 'react-query'
 
 function Clients() {
   const { user } = useUser();
+  const { apiFetch } = useApi();
+  const { isLoading, isError, data: clients, error } = useQuery('clients', () => apiFetch('/Users/Clients'))
+
+  if (isLoading) {
+    return <Page pageName="Loading clients..."></Page>;
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>
+  }
 
   if (user.Role !== "PersonalTrainer") {
     return (
@@ -68,7 +67,7 @@ function Clients() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
-                    {people.map((person) => (
+                    {clients.map((person) => (
                       <tr key={person.email}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">
                           {person.firstName}
