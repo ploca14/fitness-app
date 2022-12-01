@@ -12,14 +12,14 @@ import useUser from './components/useUser';
 import CreateExercise from './components/CreateExercise';
 
 function App() {
-  const { user, token, setToken } = useUser();
+  const { user, token, setToken, clearToken } = useUser();
 
   if (!token) {
     return <Login setToken={setToken} />
   }
 
   return (
-    <Navigation user={user}>
+    <Navigation user={user} clearToken={clearToken}>
       <Switch>
         <Route path="/clients/:id/create-program">
           <CreateProgram />

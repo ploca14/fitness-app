@@ -6,7 +6,7 @@ import { useQuery } from 'react-query';
 
 function Programs() {
   const { apiFetch } = useApi();
-  const { isLoading, isError, data: programs, error } = useQuery('programs', () => apiFetch('/WorkoutPrograms'))
+  const { isLoading, isError, data: programs, error } = useQuery('todos', () => apiFetch('/WorkoutPrograms'))
 
   if (isError) {
     return <span>Error: {error.message}</span>

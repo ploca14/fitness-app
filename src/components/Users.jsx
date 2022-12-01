@@ -57,11 +57,14 @@ function Users() {
                       <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                         Email
                       </th>
+                      <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                        Role
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
                     {isLoading ? (
-                      <div className="px-4 py-4 sm:px-6">Loading users...</div>
+                      <tr className="px-4 py-4 sm:px-6"><td>Loading users...</td></tr>
                     ) : users.map((person) => (
                       <tr key={person.email}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">
@@ -69,6 +72,7 @@ function Users() {
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.lastName}</td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.email}</td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.accountType}</td>
                       </tr>
                     ))}
                   </tbody>

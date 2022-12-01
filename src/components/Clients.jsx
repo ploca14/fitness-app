@@ -64,7 +64,7 @@ function Clients() {
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
                     {isLoading ? (
-                      <div className="px-4 py-4 sm:px-6">Loading clients...</div>
+                      <tr className="px-4 py-4 sm:px-6"><td>Loading clients...</td></tr>
                     ) : clients.map((person) => (
                       <tr key={person.email}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">

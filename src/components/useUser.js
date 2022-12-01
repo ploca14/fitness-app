@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode';
 
 export default function useUser() {
   const getToken = () => {
-    const tokenString = sessionStorage.getItem('token');
+    const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
     return userToken
   };
@@ -11,12 +11,18 @@ export default function useUser() {
   const user = token ? jwt_decode(token) : null;
 
   const saveToken = userToken => {
-    sessionStorage.setItem('token', JSON.stringify(userToken));
+    localStorage.setItem('token', JSON.stringify(userToken));
     setToken(userToken);
   };
 
+  const clearToken = () => {
+    localStorage.removeItem('token');
+    setToken(null);
+  }
+
   return {
     setToken: saveToken,
+    clearToken,
     token,
     user
   }

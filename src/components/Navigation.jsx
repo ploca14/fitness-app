@@ -28,7 +28,11 @@ function classNames(...classes) {
 }
 
 export default function Navigation(props) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const logOut = () => {
+    props.clearToken();
+  }
 
   return (
     <>
@@ -106,7 +110,7 @@ export default function Navigation(props) {
                     </nav>
                   </div>
                   <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
-                    <button type="button" className="group block flex-shrink-0 text-left">
+                    <button type="button" onClick={logOut} className="group block flex-shrink-0 text-left">
                       <div className="flex items-center">
                         <div className="ml-3">
                           <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">{props.user.Name}</p>
@@ -152,7 +156,7 @@ export default function Navigation(props) {
               </nav>
             </div>
             <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
-              <button type="button" className="group block w-full flex-shrink-0 text-left">
+              <button type="button" onClick={logOut} className="group block w-full flex-shrink-0 text-left">
                 <div className="flex items-center">
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">{props.user.Name}</p>
