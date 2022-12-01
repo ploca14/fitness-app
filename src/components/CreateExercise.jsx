@@ -1,30 +1,11 @@
 import Page from './Page';
 import useUser from './useUser';
-import { Redirect, Link, useParams } from 'react-router-dom';
+import { Redirect, Link, useParams, useLocation } from 'react-router-dom';
 
-const program = {
-  "workoutProgramId": 173,
-  "name": "Workout TO THE MAX!!",
-  "description": "Workout for el Jefe Senior",
-  "exercises": [
-    {
-      "exerciseId": 105,
-      "name": "Ej Jefe Workout",
-      "description": "Stand with your feet spread shoulder width apart. Lower your body as far as you can by pushing your hips back and bending your knees. Pause, and then slowly push yourself back to the starting position.",
-      "sets": 4,
-      "repetitions": 12,
-      "time": "30",
-      "workoutProgramId": 173,
-      "personalTrainerId": 2
-    }
-  ],
-  "personalTrainerId": 2,
-  "clientId": 139
-}
-
-function CreateExercise() {
+function CreateExercise(props) {
   let { id } = useParams();
   const { user } = useUser();
+  let { state: program } = useLocation();
 
   if (!["PersonalTrainer", "Manager"].includes(user.Role)) {
     return (

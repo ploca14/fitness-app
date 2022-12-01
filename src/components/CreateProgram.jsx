@@ -1,20 +1,10 @@
 import Page from './Page';
 import useUser from './useUser';
-import { Link, useParams, Redirect } from 'react-router-dom';
-
-const user = {
-  "userId": 139,
-  "firstName": "Ib",
-  "lastName": "Ibsen",
-  "email": "a@a",
-  "password": null,
-  "personalTrainerId": 2,
-  "accountType": "Client"
-}
+import { Link, Redirect, useLocation } from 'react-router-dom';
 
 function CreateProgram() {
-  let { id } = useParams();
   const { user } = useUser();
+  let { state: client } = useLocation();
 
   if (user.Role !== "PersonalTrainer") {
     return (
@@ -27,7 +17,7 @@ function CreateProgram() {
   }
 
   return (
-    <Page pageName={`Create new program for ${user.firstName} ${user.lastName}`}>
+    <Page pageName={`Create new program for ${client.firstName} ${client.lastName}`}>
       <form className="space-y-6">
         <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:p-6">
           <div className="md:grid md:grid-cols-3 md:gap-6">
