@@ -28,7 +28,13 @@ function Programs() {
               <div className="px-4 py-4 sm:px-6">Loading programs...</div>
             ) : programs.map((program) => (
               <li key={program.workoutProgramId}>
-                <Link to={`/programs/${program.workoutProgramId}`} className="block hover:bg-gray-50">
+                <Link
+                  to={{
+                    pathname: `/programs/${program.workoutProgramId}`,
+                    state: program
+                  }}
+                  className="block hover:bg-gray-50"
+                >
                   <div className="flex items-center px-4 py-4 sm:px-6">
                     <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                       <div className="truncate">

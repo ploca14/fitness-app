@@ -1,5 +1,5 @@
 import { ClockIcon } from '@heroicons/react/24/outline';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import useUser from './useUser';
 import useApi from './useApi';
@@ -9,7 +9,8 @@ function Program() {
   const { id } = useParams();
   const { user } = useUser();
   const { apiFetch } = useApi();
-  const { isLoading, isError, data: program, error } = useQuery(['program', id], () => apiFetch(`/WorkoutPrograms/${id}`))
+  const { state: prefetchedProgram } = useLocation();
+  const { isLoading, isError, data: program, error } = useQuery(['program', id], () => apiFetch(`/WorkoutPrograms/${id}`), { initialData: prefetchedProgram })
 
   if (isLoading) {
     return <Page pageName="Loading program..."></Page>;
