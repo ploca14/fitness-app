@@ -27,7 +27,7 @@ function CreateExercise(props) {
       method: 'POST',
       body: {
         ...newExercise,
-        time: exerciseType === 'time-exercise' ? newExercise.time : null,
+        time: exerciseType === 'time-exercise' ? newExercise.time : "",
         repetitions: exerciseType === 'reps-exercise' ? newExercise.repetitions : null,
       },
     });
